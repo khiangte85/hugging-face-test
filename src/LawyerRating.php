@@ -17,12 +17,20 @@ class LawyerRating
         try {
             $client = new Client();
 
-            $response = $client->request('POST', $this->apiUrl, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->apiToken,
-                    'Content-Type' => 'application/json'
+            $response = $client->request(
+                'POST',
+                $this->apiUrl,
+                [
+                    'json' => [
+                        'inputs' => $review,
+                    ],
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $this->apiToken,
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json'
+                    ]
                 ]
-            ]);
+            );
 
             if($response->getStatusCode() !== 200) {
                 throw new Exception('Failed to get rating!', $response->getStatusCode());
@@ -30,7 +38,7 @@ class LawyerRating
 
             return [
                     'error' => false,
-                    'result' => $response->getBody()
+                    'result' => json_decode($response->getBody())
             ];
         } catch(Exception $e) {
             return [

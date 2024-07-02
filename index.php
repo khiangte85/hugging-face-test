@@ -13,20 +13,11 @@ $apiToken = $_ENV['API_TOKEN'];
 
 $lawyerRating = new LawyerRating($apiToken, $apiUrl);
 
-$ressult = $lawyerRating->getRating('This lawyer is the best!');
+$result = $lawyerRating->getRating('This lawyer is the best!');
 
-// Expect below data on success
-// [
-//   [
-//     {
-//       "label": "POSITIVE",
-//       "score": 0.9973899722099304
-//     },
-//     {
-//       "label": "NEGATIVE",
-//       "score": 0.002610080409795046
-//     }
-//   ]
-// ]
-
-var_dump($ressult);
+if($result['error']) {
+    echo $result['message'];
+    exit;
+}
+var_dump(json_encode($result['result']));
+// OUTPUT: string(49) "[{"label":"POSITIVE","score":0.9998682737350464}]"
