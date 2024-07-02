@@ -11,7 +11,7 @@ $dotenv->load();
 $apiUrl = $_ENV['API_URL'];
 $apiToken = $_ENV['API_TOKEN'];
 
-$lawyerRating = new LawyerRating('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', $apiUrl);
+$lawyerRating = new LawyerRating($apiToken, $apiUrl);
 
 $ressult = $lawyerRating->getRating('This lawyer is the best!');
 
