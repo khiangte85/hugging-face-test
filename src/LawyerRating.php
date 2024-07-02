@@ -42,7 +42,7 @@ class LawyerRating
             ];
         } catch(Exception $e) {
             return [
-                   'error' => false,
+                   'error' => true,
                    'message' => $e->getMessage()
             ];
         }
